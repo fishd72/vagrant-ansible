@@ -1,0 +1,9 @@
+---
+- name: Get dotfiles
+  git:
+    repo: https://github.com/fishd72/Dotfiles.git
+    dest: "/home/{{ raspi_user }}/Dotfiles"
+- name: Run config script
+  shell: "/home/{{ raspi_user }}/Dotfiles/update_local_config.sh"
+  args:
+    chdir: "/home/{{ raspi_user }}/Dotfiles"

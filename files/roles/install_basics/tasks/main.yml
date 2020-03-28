@@ -1,0 +1,6 @@
+- name: Install Basic Packages
+  become: yes
+  apt: 
+    pkg: "{{ basic_packages }}"
+    state: latest
+    force_apt_get: yes

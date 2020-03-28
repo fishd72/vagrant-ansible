@@ -1,0 +1,20 @@
+- name: Disable empty password login
+  become: yes
+  lineinfile: dest={{ sshd_config }} regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
+  notify: Restart sshd
+
+- name: Disable remote root login
+  become: yes
+  lineinfile: dest={{ sshd_config }} regexp="^#?PermitRootLogin" line="PermitRootLogin no"
+  notify: Restart sshd
+
+- name: Disable password login
+  become: yes
+  lineinfile: dest={{ sshd_config }} regexp="^(#\s*)?PasswordAuthentication " line="PasswordAuthentication no"
+  notify: Restart sshd
+
+- name: Change default hostname
+  become: yes
+  command: "raspi-config nonint do_hostname {{ raspi_hostname }}"
+  when: ansible_hostname != raspi_hostname
+  notify: Reboot host

@@ -1,0 +1,13 @@
+---
+- name: shutdown
+  gather_facts: no
+  become: 'yes'
+  become_method: sudo
+  hosts: raspi_cluster
+  remote_user: "{{ raspi_user }}"
+
+  tasks:
+  - name: shutdown hosts
+    command: /sbin/shutdown -h now
+#    when: ansible_facts['os_family'] == "Debian"
+    ignore_errors: 'yes'
