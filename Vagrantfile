@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
      apt-add-repository ppa:ansible/ansible
      apt-get update
      apt-get install -y ansible
+     eval "$(ssh-agent -s)"
    SHELL
+   config.vm.provision "file", source: "~/.ssh", destination: "$HOME/.ssh"
 end
-
