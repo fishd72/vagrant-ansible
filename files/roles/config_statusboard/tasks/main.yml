@@ -1,0 +1,19 @@
+- name: Install Required Packages
+  become: yes
+  apt:
+    pkg: "{{ required_packages }}"
+    state: latest
+    force_apt_get: yes
+
+- name: Copy file to a remote machine
+  copy:
+    src: /opt/ansible/files/status.py
+    dest: $HOME/
+    force: yes
+
+- name: Creates a crontab entry to load Status script
+  cron:
+    name: "StatusBoard"
+    special_time: reboot
+    job: "python /home/fishd/status.py"
+  notify: Reboot host

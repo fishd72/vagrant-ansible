@@ -1,0 +1,6 @@
+---
+- hosts: raspi_status
+  remote_user: "{{ raspi_user }}"
+  tasks:
+    - import_role:
+        name: config_statusboard
