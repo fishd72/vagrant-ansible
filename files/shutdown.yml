@@ -3,7 +3,7 @@
   gather_facts: no
   become: 'yes'
   become_method: sudo
-  hosts: raspi_cluster
+  hosts: all
   remote_user: "{{ raspi_user }}"
 
   tasks:

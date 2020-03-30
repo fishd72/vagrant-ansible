@@ -1,0 +1,2 @@
+---
+required_packages: [ 'python-blinkt', 'python3-blinkt']

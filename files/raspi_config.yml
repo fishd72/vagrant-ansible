@@ -1,14 +1,27 @@
 ---
-- hosts: raspi_cluster
+- hosts: all
   remote_user: "{{ raspi_user }}"
   tasks:
-    - import_role:
+    - name: Secure SSH server
+      import_role:
         name: secure_sshd
-    - import_role:
+    - name: Remove Pi user
+      import_role:
         name: remove_default_user
-    - import_role:
+    - name: Upgrade apt cache and installed apps
+      import_role:
         name: apt_upgrade
-    - import_role:
+    - name: Install key software
+      import_role:
         name: install_basics
-    - import_role:
+    - name: Copy dotfiles from github
+      import_role:
         name: dotfiles
+    - name: Configure statusboard hat ONLY on those with it installed
+      import_role:
+        name: config_statusboard
+      when: "'raspi_status' in group_names"
+    - name: Configure blinkt hat ONLY on those with it installed
+      import_role:
+        name: config_blinkt
+      when: "'raspi_blinkt' in group_names"

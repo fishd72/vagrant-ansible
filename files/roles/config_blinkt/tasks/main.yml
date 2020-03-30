@@ -1,0 +1,18 @@
+- name: Install packages for Blinkt
+  become: yes
+  apt:
+    pkg: "{{ required_packages }}"
+    state: latest
+    force_apt_get: yes
+
+- name: Copy blinkt files from Github to a local machine
+  git:
+    repo: https://github.com/pimoroni/blinkt.git
+    dest: "/home/{{ raspi_user }}/blinkt"
+
+- name: Creates a crontab entry to load Blinkt script
+  cron:
+    name: "BlinktCPU"
+    special_time: reboot
+    job: "python /home/{{ raspi_user }}/blinkt/examples/rainbow.py"
+  notify: Reboot host

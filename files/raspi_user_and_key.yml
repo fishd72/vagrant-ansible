@@ -1,5 +1,5 @@
 ---
-- hosts: raspi_cluster
+- hosts: all
   remote_user: pi
   gather_facts: no
   become: yes
