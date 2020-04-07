@@ -14,4 +14,5 @@ Vagrant.configure("2") do |config|
      apt-get install -y ansible
    SHELL
    config.vm.provision "file", source: "~/.ssh/known_hosts", destination: "$HOME/.ssh/known_hosts"
+   config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "$HOME/.ssh/id_rsa.pub"
 end
