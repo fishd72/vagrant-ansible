@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  remote_user: "{{ raspi_user }}"
   tasks:
     - name: Secure SSH server
       import_role:
