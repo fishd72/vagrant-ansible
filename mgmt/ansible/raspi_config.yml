@@ -8,6 +8,7 @@
     - name: Remove Pi user
       import_role:
         name: remove_default_user
+      when: "'raspberrypi' in group_names"
     - name: Upgrade apt cache and installed apps
       import_role:
         name: apt_upgrade
