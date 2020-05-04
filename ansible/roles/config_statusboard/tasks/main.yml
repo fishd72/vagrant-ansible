@@ -5,11 +5,13 @@
     state: latest
     force_apt_get: yes
 
-- name: Copy status script to local machine
-  copy:
-    src: /opt/ansible/files/status.py
-    dest: "/home/{{ raspi_user }}/"
-    force: yes
+- name: Use template to create status script
+  template:
+      dest: "/home/{{ raspi_user }}/status.py"
+      src: status.py.j2
+      owner: "{{ raspi_user }}"
+      group: "{{ raspi_user }}"
+      mode: 0770
 
 - name: Creates a crontab entry to load Status script
   cron:

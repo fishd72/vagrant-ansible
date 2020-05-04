@@ -3,12 +3,12 @@ from gpiozero import PingServer, StatusZero
 from gpiozero.tools import negated
 from signal import pause
 
-sz = StatusZero('router', 'google', 'NAS')
+sz = StatusZero('{{ server1_name }}', '{{ server2_name }}', '{{ server3_name }}')
 
 statuses = {
-    sz.router: PingServer('192.168.178.1'),
-    sz.google: PingServer('8.8.8.8'),
-    sz.NAS: PingServer('192.168.178.64'),
+    sz.{{ server1_name }}: PingServer('{{ server1_ipaddress }}'),
+    sz.{{ server2_name }}: PingServer('{{ server2_ipaddress }}'),
+    sz.{{ server3_name }}: PingServer('{{ server3_ipaddress }}'),
 }
 
 for strip, server in statuses.items():
