@@ -26,3 +26,6 @@
       import_role:
         name: config_blinkt
       when: "'raspi_blinkt' in group_names"
+    - import_playbook:
+        free-form: config_camera.yml
+      when: "'camera' in group_names"
