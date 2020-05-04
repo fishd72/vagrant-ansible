@@ -1,8 +1,15 @@
 ---
 - hosts: all
-  remote_user: "{{ raspi_user }}"
   become: yes
+
+  vars_prompt:
+  - name: username
+    prompt: "What is your username?"
+    private: no
+
   tasks:
+    - debug:
+        msg: 'Logging in as {{ username }}'
     - name: Collect only facts returned by facter
       setup:
         gather_subset:
@@ -12,8 +19,6 @@
     - name: "Create new user named {{ raspi_user }} on Raspbian"
       import_role:
         name: add_local_user
-      vars:
-        remote_user: pi
       when: ansible_lsb.id == "Raspbian"
     - name: allow passwordless sudo
       lineinfile:
