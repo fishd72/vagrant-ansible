@@ -13,7 +13,7 @@ statuses = {
 
 for strip, server in statuses.items():
     strip.green.source = server.values
-    strip.green.source_delay = 60
+    strip.green.source_delay = "{{ ping_delay }}"
     strip.red.source = negated(strip.green.values)
 
 pause()

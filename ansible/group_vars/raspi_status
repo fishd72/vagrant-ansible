@@ -5,3 +5,4 @@ server2_name: google
 server2_ipaddress: 8.8.8.8
 server3_name: NAS
 server3_ipaddress: 192.168.178.64
+ping_delay: 60
