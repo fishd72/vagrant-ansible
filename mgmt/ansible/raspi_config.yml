@@ -8,7 +8,7 @@
     - name: Remove Pi user
       import_role:
         name: remove_default_user
-      when: "'raspberrypi' in group_names"
+      when: ansible_lsb.id == "Raspbian"
     - name: Upgrade apt cache and installed apps
       import_role:
         name: apt_upgrade

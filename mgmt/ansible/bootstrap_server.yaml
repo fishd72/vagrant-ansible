@@ -1,0 +1,25 @@
+---
+- hosts: all
+  remote_user: "{{ raspi_user }}"
+  become: yes
+  tasks:
+    - name: Collect only facts returned by facter
+      setup:
+        gather_subset:
+          - '!all'
+          - '!any'
+          - facter
+    - name: "Create new user named {{ raspi_user }} on Raspbian"
+      import_role:
+        name: add_local_user
+      vars:
+        remote_user: pi
+      when: ansible_lsb.id == "Raspbian"
+    - name: allow passwordless sudo
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s' 
+

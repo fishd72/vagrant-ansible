@@ -1,0 +1,17 @@
+---
+raspi_user_groups:
+  - pi
+  - adm
+  - dialout
+  - cdrom
+  - sudo
+  - audio
+  - video
+  - plugdev
+  - games
+  - users
+  - input
+  - netdev
+  - gpio
+  - i2c
+  - spi

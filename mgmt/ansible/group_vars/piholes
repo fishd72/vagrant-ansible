@@ -1,0 +1,33 @@
+---
+# task variables
+pihole_repo: https://github.com/pi-hole/pi-hole.git
+pihole_repo_depth: 1
+pihole_directory: /home/pi/pihole
+pihole_branch: "master"
+
+## setupVars.conf
+pihole_setupvars_pihole_interface: "{{ ansible_default_ipv4.alias }}"
+pihole_setupvars_ipv4_address: "{{ ansible_default_ipv4.address }}"
+pihole_setupvars_ipv6_address:
+pihole_setupvars_query_logging: "true"
+pihole_setupvars_install_web_server: "true"
+pihole_setupvars_install_web_interface: "true"
+pihole_setupvars_lighttpd_enabled: "true"
+pihole_setupvars_webpassword:
+pihole_setupvars_blocking_enabled: "true"
+pihole_setupvars_pihole_dns_1: 212.23.3.100
+pihole_setupvars_pihole_dns_2: 212.23.6.100
+pihole_setupvars_dns_fqdn_required: "true"
+pihole_setupvars_dns_bogus_priv: "true"
+pihole_setupvars_dnssec: "true"
+pihole_setupvars_conditional_forwarding: "false"
+pihole_setupvars_conditional_forwarding_ip:
+pihole_setupvars_conditional_forwarding_domain:
+pihole_setupvars_conditional_forwarding_reverse:
+pihole_setupvars_dnsmasq_listening: "single"
+pihole_setupvars_dhcp_active: 
+pihole_setupvars_dhcp_leasetime:
+pihole_setupvars_dhcp_range_start:
+pihole_setupvars_dhcp_range_end:
+pihole_setupvars_dhcp_ipv6:
+pihole_setupvars_dhcp_rapid_commit:
