@@ -1,10 +1,10 @@
-- name: Hostname | Update the hostname (pt. 1) - non-Raspbian
+- name: Update the hostname (pt. 1) - non-Raspbian
   hostname:
     name: "{{inventory_hostname_short}}"
   when: ansible_lsb.id != "Raspbian"
   notify: Reboot host
 
-- name: Hostname | Update the hostname (pt. 1) - Raspbian
+- name: Update the hostname (pt. 1) - Raspbian
   become: yes
   command: "raspi-config nonint do_hostname {{ inventory_hostname_short }}"
   when: 
@@ -12,7 +12,7 @@
     - ansible_lsb.id == "Raspbian"
   notify: Reboot host
 
-- name: Hostname | Update the hostname (pt. 2) - (/etc/hostname)
+- name: Update the hostname (pt. 2) - (/etc/hostname)
   copy:
     content: "{{inventory_hostname_short}}{{'\n'}}"
     dest: /etc/hostname
@@ -20,7 +20,7 @@
     group: root
     mode: 0644
 
-- name: Hostname | Update the IPv4 hostname (pt. 3) - (/etc/hosts)
+- name: Update the IPv4 hostname (pt. 3) - (/etc/hosts)
   become: yes
   lineinfile:
     dest: /etc/hosts
