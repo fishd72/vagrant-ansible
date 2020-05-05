@@ -1,10 +1,13 @@
 ---
 - hosts: all
-  remote_user: "{{ raspi_user }}"
+
   tasks:
     - name: Secure SSH server
       import_role:
         name: secure_sshd
+    - name: Change hostname
+      import_role:
+        name: change_hostname
     - name: Remove Pi user
       import_role:
         name: remove_default_user

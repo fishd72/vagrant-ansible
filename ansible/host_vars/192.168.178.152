@@ -1,4 +1,3 @@
-
 ---
 raspi_hostname: raspi-02
 ufw_rules:

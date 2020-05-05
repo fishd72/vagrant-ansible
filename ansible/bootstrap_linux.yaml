@@ -3,13 +3,20 @@
   become: yes
 
   vars_prompt:
-  - name: username
-    prompt: "What is your username?"
+  - name: connect_username
+    prompt: "What is the connection username?"
     private: no
 
+  - name: connect_password
+    prompt: "What is the connection password?"
+    private: yes
+
+  vars:
+    ansible_user: "{{ connect_username }}"
+    ansible_password: "{{ connect_password }}"
+    ansible_become_password: "{{ connect_password }}"
+  
   tasks:
-    - debug:
-        msg: 'Logging in as {{ username }}'
     - name: Collect only facts returned by facter
       setup:
         gather_subset:

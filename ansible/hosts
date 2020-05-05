@@ -1,32 +1,31 @@
 [raspi_blinkt]
-192.168.178.151
-192.168.178.152
-192.168.178.153
-192.168.178.154
+raspi-01 ansible_host=192.168.178.151
+raspi-02 ansible_host=192.168.178.152
+raspi-03 ansible_host=192.168.178.153
+raspi-04 ansible_host=192.168.178.154
 
 [raspi_status]
-192.168.178.155
-
-[raspberrypi]
-192.168.178.151
-192.168.178.152
-192.168.178.153
-192.168.178.154
-192.168.178.155
-192.168.178.156
+raspi-05 ansible_host=192.168.178.155
 
 [camera]
-192.168.178.156
+raspi-06 ansible_host=192.168.178.156
 
 [piholes]
-192.168.178.10
+pihole ansible_host=192.168.178.10
 
-[openvpn]
-192.168.178.65
+[vpn]
+openvpn ansible_host=192.168.178.65
+
+[raspberrypi:children]
+raspi_blinkt
+raspi_status
+camera
 
 [test]
-192.168.178.151
-192.168.178.152
-192.168.178.153
-192.168.178.154
+raspi-01
+raspi-02
+raspi-03
+raspi-04
 
+[all:vars]
+raspi_user=fishd

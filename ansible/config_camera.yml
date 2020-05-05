@@ -1,6 +1,5 @@
 ---
 - hosts: camera
-  user: "{{ raspi_user }}"
   become: true
   roles:
     - role: hkcam

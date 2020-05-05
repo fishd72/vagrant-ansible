@@ -1,5 +1,3 @@
-
-
 ---
 raspi_hostname: raspi-04
 ufw_rules:

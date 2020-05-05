@@ -13,8 +13,3 @@
   lineinfile: dest={{ sshd_config }} regexp="^(#\s*)?PasswordAuthentication " line="PasswordAuthentication no"
   notify: Restart sshd
 
-- name: Change default hostname
-  become: yes
-  command: "raspi-config nonint do_hostname {{ raspi_hostname }}"
-  when: ansible_hostname != raspi_hostname
-  notify: Reboot host

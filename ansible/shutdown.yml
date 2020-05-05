@@ -1,11 +1,7 @@
 ---
-- name: shutdown
+- hosts: all
   gather_facts: no
   become: 'yes'
-  become_method: sudo
-  hosts: all
-  remote_user: "{{ raspi_user }}"
-
   tasks:
   - name: shutdown hosts
     command: /sbin/shutdown -h now
