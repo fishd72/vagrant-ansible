@@ -1,0 +1,4 @@
+---
+raspi_hostname: raspi-03
+ufw_rules:
+  - { port: 22, rule: allow, comment: 'Allow SSH' }

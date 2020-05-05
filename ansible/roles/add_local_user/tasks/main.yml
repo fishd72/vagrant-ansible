@@ -1,0 +1,10 @@
+- name: "Create new user named {{ raspi_user }}"
+  user:
+    name: "{{ raspi_user }}"
+    groups: "{{ raspi_user_groups }}"
+    append: yes
+- name: "Set ssh authorized key for user {{ raspi_user }}"
+  authorized_key:
+    user: "{{ raspi_user }}"
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"

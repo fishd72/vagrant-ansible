@@ -1,0 +1,23 @@
+- name: Install Basic Packages
+  become: yes
+  apt: 
+    pkg: "{{ basic_packages }}"
+    state: latest
+    force_apt_get: yes
+
+- name: Install Qemu Guest Tools
+  become: yes
+  apt:
+    pkg: qemu-guest-agent
+    state: latest
+    force_apt_get: yes
+  when:  ansible_virtualization_role == "guest" and ansible_virtualization_type == "kvm" and ansible_os_family == "Debian"
+
+- name: Install VMware tools
+  become: yes
+  apt:
+    pkg: open-vm-tools
+    state: latest
+    force_apt_get: yes
+  when:  ansible_virtualization_role == "guest" and ansible_virtualization_type == "vmware" and ansible_os_family == "Debian"
+  notify: Reboot host

@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+from gpiozero import PingServer, StatusZero
+from gpiozero.tools import negated
+from signal import pause
+
+sz = StatusZero('{{ server1_name }}', '{{ server2_name }}', '{{ server3_name }}')
+
+statuses = {
+    sz.{{ server1_name }}: PingServer('{{ server1_ipaddress }}'),
+    sz.{{ server2_name }}: PingServer('{{ server2_ipaddress }}'),
+    sz.{{ server3_name }}: PingServer('{{ server3_ipaddress }}'),
+}
+
+for strip, server in statuses.items():
+    strip.green.source = server.values
+    strip.green.source_delay = "{{ ping_delay }}"
+    strip.red.source = negated(strip.green.values)
+
+pause()

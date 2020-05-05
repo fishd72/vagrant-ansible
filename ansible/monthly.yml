@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+    - name: Secure SSH server
+      import_role:
+        name: secure_sshd
+    - name: Upgrade apt cache and installed apps
+      import_role:
+        name: apt_upgrade
+    - name: Install key software
+      import_role:
+        name: install_basics
+    - name: Copy dotfiles from github
+      import_role:
+        name: dotfiles
+ 

@@ -3,7 +3,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "vmware_fusion" do |v|
     v.memory = 2048
     v.cpus = 2
-  config.vm.synced_folder "mgmt/", "/opt/"
+  config.vm.synced_folder "ansible/", "/opt/ansible/"
   config.ssh.forward_agent = true
   end
    config.vm.provision "shell", inline: <<-SHELL

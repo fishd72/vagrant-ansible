@@ -1,0 +1,37 @@
+---
+- hosts: all
+  become: yes
+
+  vars_prompt:
+  - name: connect_username
+    prompt: "What is the connection username?"
+    private: no
+
+  - name: connect_password
+    prompt: "What is the connection password?"
+    private: yes
+
+  vars:
+    ansible_user: "{{ connect_username }}"
+    ansible_password: "{{ connect_password }}"
+    ansible_become_password: "{{ connect_password }}"
+  
+  tasks:
+    - name: Collect only facts returned by facter
+      setup:
+        gather_subset:
+          - '!all'
+          - '!any'
+          - facter
+    - name: "Create new user named {{ raspi_user }} on Raspbian"
+      import_role:
+        name: add_local_user
+      when: ansible_lsb.id == "Raspbian"
+    - name: allow passwordless sudo
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s' 
+

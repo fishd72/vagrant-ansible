@@ -1,0 +1,34 @@
+---
+- hosts: all
+
+  tasks:
+    - name: Secure SSH server
+      import_role:
+        name: secure_sshd
+    - name: Change hostname
+      import_role:
+        name: change_hostname
+    - name: Remove Pi user
+      import_role:
+        name: remove_default_user
+      when: ansible_lsb.id == "Raspbian"
+    - name: Upgrade apt cache and installed apps
+      import_role:
+        name: apt_upgrade
+    - name: Install key software
+      import_role:
+        name: install_basics
+    - name: Copy dotfiles from github
+      import_role:
+        name: dotfiles
+    - name: Configure statusboard hat ONLY on those with it installed
+      import_role:
+        name: config_statusboard
+      when: "'raspi_status' in group_names"
+    - name: Configure blinkt hat ONLY on those with it installed
+      import_role:
+        name: config_blinkt
+      when: "'raspi_blinkt' in group_names"
+    - import_playbook:
+        free-form: config_camera.yml
+      when: "'camera' in group_names"

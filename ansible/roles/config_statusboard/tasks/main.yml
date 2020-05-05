@@ -1,0 +1,21 @@
+- name: Install packages for StatusBoard Zero
+  become: yes
+  apt:
+    pkg: "{{ required_packages }}"
+    state: latest
+    force_apt_get: yes
+
+- name: Use template to create status script
+  template:
+      dest: "/home/{{ raspi_user }}/status.py"
+      src: status.py.j2
+      owner: "{{ raspi_user }}"
+      group: "{{ raspi_user }}"
+      mode: 0770
+
+- name: Creates a crontab entry to load Status script
+  cron:
+    name: "StatusBoard"
+    special_time: reboot
+    job: "python /home/{{ raspi_user }}/status.py"
+  notify: Reboot host
