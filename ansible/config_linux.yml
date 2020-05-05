@@ -32,3 +32,7 @@
     - import_playbook:
         free-form: config_camera.yml
       when: "'camera' in group_names"
+    - name: Configure firewall
+      become: yes
+      import_role:
+        name: configure_ufw
