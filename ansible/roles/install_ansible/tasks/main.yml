@@ -1,0 +1,17 @@
+- name: Install Python3
+  become: yes
+  apt: 
+    pkg: "{{ python3_packages }}"
+    state: latest
+    force_apt_get: yes
+
+- name: Ensure Pip is installed
+  apt:
+    pkg: "{{ pip_package }}"
+    state: present
+
+- name: Install Ansible & winrm packages
+  pip:
+    name: '{{ pip_install_packages }}'
+    state: present
+    executable: "{{ pip_executable }}"

@@ -1,8 +1,15 @@
+- name: Getting current group names
+  shell: groups | cut -f 2- -d " " | tr ' ' ','
+  become: no
+  register: group_members
+
 - name: "Create new user named {{ raspi_user }}"
   user:
     name: "{{ raspi_user }}"
-    groups: "{{ raspi_user_groups }}"
+    groups: "{{ group_members.stdout }}"
+    shell: /bin/bash
     append: yes
+
 - name: "Set ssh authorized key for user {{ raspi_user }}"
   authorized_key:
     user: "{{ raspi_user }}"
