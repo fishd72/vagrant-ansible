@@ -8,10 +8,9 @@
     - name: Change hostname
       import_role:
         name: change_hostname
-    - name: Remove Pi user
+    - name: Remove default user accounts
       import_role:
         name: remove_default_user
-      when: ansible_lsb.id == "Raspbian"
     - name: Upgrade apt cache and installed apps
       import_role:
         name: apt_upgrade

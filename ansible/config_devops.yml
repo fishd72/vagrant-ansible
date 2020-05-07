@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+
+  tasks:    
+    - name: Installing Ansible
+      import_role: 
+        name: install_ansible
+    - name: Installing awscli
+      import_role: 
+        name: install_awscli
+    - name: Installing Azure-cli, skipped on ARM
+      import_role: 
+        name: install_azurecli
+      when: ansible_lsb.id != "Raspbian"
+    - name: Installing Terraform
+      import_role: 
+        name: install_terraform

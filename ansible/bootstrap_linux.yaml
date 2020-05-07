@@ -17,16 +17,10 @@
     ansible_become_password: "{{ connect_password }}"
   
   tasks:
-    - name: Collect only facts returned by facter
-      setup:
-        gather_subset:
-          - '!all'
-          - '!any'
-          - facter
-    - name: "Create new user named {{ raspi_user }} on Raspbian"
+    - name: "Create new user named {{ raspi_user }} if needed"
       import_role:
         name: add_local_user
-      when: ansible_lsb.id == "Raspbian"
+      when: "'connect_username' != 'raspi_user'"
     - name: allow passwordless sudo
       lineinfile:
         path: /etc/sudoers
