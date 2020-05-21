@@ -1,15 +1,16 @@
-- name: Disable empty password login
-  become: yes
-  lineinfile: dest={{ sshd_config }} regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
-  notify: Restart sshd
-
-- name: Disable remote root login
-  become: yes
-  lineinfile: dest={{ sshd_config }} regexp="^#?PermitRootLogin" line="PermitRootLogin no"
-  notify: Restart sshd
-
-- name: Disable password login
-  become: yes
-  lineinfile: dest={{ sshd_config }} regexp="^(#\s*)?PasswordAuthentication " line="PasswordAuthentication no"
+- name: Secure SSH
+  lineinfile:
+    dest: {{ sshd_config }}
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    validate: 'sshd -T -f %s'
+  with_items:
+    - regexp: "^PasswordAuthentication "
+      line: "PasswordAuthentication no"
+    - regexp: "^PermitRootLogin"
+      line: "PermitRootLogin no"
+    - regexp: "^PermitEmptyPasswords"
+      line: "PermitEmptyPasswords no"
   notify: Restart sshd
 
